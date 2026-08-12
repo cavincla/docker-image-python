@@ -47,13 +47,3 @@ ENTRYPOINT ["/bin/sleep", "infinity"]
 
 FROM base AS dist
 
-#
-# Image with torch-cpu library installed
-#
-FROM base AS torch-cpu
-
-ARG TORCH_VERSION
-
-# Install torch cpu
-RUN pip install --prefix "/home/${DOCKER_USER}/.local" --no-cache-dir --disable-pip-version-check torch==${TORCH_VERSION} --index-url https://download.pytorch.org/whl/cpu
-

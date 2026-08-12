@@ -14,16 +14,4 @@ docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=
 
 docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target dist --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} -t cavincla/python:${PYTHON_VERSION}-dist .
 
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.4.0 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.4.0 .
-
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.4.1 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.4.1 .
-
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.5.0 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.5.0 .
-
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.5.1 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.5.1 .
-
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.6.0 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.6.0 .
-
-docker buildx build --platform linux/amd64,linux/arm64 --sbom=true --provenance=true --builder=container --pull ${PUSH} --target torch-cpu --build-arg PYTHON_VERSION=${PYTHON_VERSION} --build-arg DEBIAN_VERSION=${DEBIAN_VERSION} --build-arg TORCH_VERSION=2.7.0 -t cavincla/python:${PYTHON_VERSION}-torch-cpu-2.7.0 .
-
 docker buildx stop container
