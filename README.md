@@ -186,6 +186,12 @@ CMD ["python", "app.py"]
 
 Even though `dist` is currently equivalent to `base`, keeping `dist` in application Dockerfiles is recommended so future image specialization can be adopted without changing downstream naming conventions.
 
+## Automatic freshness updates
+
+All supported Python versions (`3.11`, `3.12`, `3.13`, `3.14`) are rebuilt and republished automatically when the corresponding upstream `python:*-slim` image changes.
+
+A scheduled GitHub Actions workflow runs every 7 days for each version, compares the current upstream image digest against the last one recorded in `.github/state/`, and only triggers a rebuild/push when the digest changed. This keeps published images aligned with upstream security and patch updates without needing a manual rebuild.
+
 ## Docker hub repository
 
 The images in this repository are published to Docker Hub and versioned by tag.
