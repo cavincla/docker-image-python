@@ -13,19 +13,7 @@ Supported python versions:
 | `3.13`  | `trixie`    |
 | `3.14`  | `trixie`    |
 
-Note: Python 3.11 and 3.12 are based on Debian Bookworm (stable). Python 3.13 and 3.14 are based on Debian Trixie (testing), which is required because the official `python:3.13-slim-bookworm` and `python:3.14-slim-bookworm` images are not available upstream.
-
-Supported torch versions:
-
-- `2.4.0`
-- `2.4.1`
-- `2.5.0`
-- `2.5.1`
-- `2.6.0`
-- `2.7.0`
-- `2.8.0`
-- `2.9.0`
-- `2.9.1`
+Note: Python 3.11 and 3.12 are based on Debian Bookworm. Python 3.13 and 3.14 are based on Debian Trixie.
 
 Supported platforms:
 
@@ -34,12 +22,11 @@ Supported platforms:
 
 ## Image variants
 
-ZCS Python docker images are available in four flavours:
+ZCS Python docker images are available in three flavours:
 
 - `base`: base image, mainly used by other stages
 - `dev`: image for local development
 - `dist`: image used for application distribution (currently identical to `base`; naming is kept for standardization)
-- `torch-cpu`: image for distributing the final application with torch-cpu library
 
 Notes:
 
@@ -74,17 +61,6 @@ Benefits:
 - Prevents permission conflicts in bind-mounted source directories.
 - Preserves repository integrity by avoiding ownership drift that can break local tooling.
 - Makes local development smoother across Linux hosts and CI runners with different user IDs.
-
-### Preinstalled PyTorch (`torch-cpu`)
-
-The `torch-cpu` image provides a ready-to-use runtime with PyTorch already installed.
-
-Benefits:
-
-- Faster application builds due to reduced dependency installation work.
-- Better reproducibility when the PyTorch version is pinned in the image tag.
-- Fewer network-related build failures in downstream projects.
-- Simpler application Dockerfiles for ML services that always require PyTorch.
 
 ## Example usage
 
@@ -125,42 +101,9 @@ What happens during build:
 - `/fix-perm.sh` updates container user/group IDs to match the host values.
 - The final image still runs as non-root, but with host-compatible ownership.
 
-### Docker image for target application with torch-cpu library
-
-Use this image when your runtime always requires PyTorch CPU support and you want to avoid reinstalling it in every downstream build.
-
-Typical scenarios:
-
-- ML inference services running on CPU-only nodes.
-- Batch workloads where startup/build time should be minimized.
-- CI pipelines where deterministic dependency layers improve reliability.
-
-Dockerfile definition:
-
-```docker
-FROM cavincla/python:3.11-torch-cpu-2.4.0
-
-# Copy application requirement file
-COPY --chown=${DOCKER_USER}:${DOCKER_GROUP} app/requirements.txt .
-
-# Install app requirements
-RUN pip install --user --no-cache-dir --disable-pip-version-check -r requirements.txt
-
-# Copy application code
-COPY --chown=${DOCKER_USER}:${DOCKER_GROUP} app/ .
-
-# Run application
-CMD ["python", "app.py"]
-```
-
-Notes:
-
-- Keep the `torch-cpu` tag version explicit to guarantee reproducible environments.
-- Install only application-specific requirements in child images.
-
 ### Docker image for target application
 
-Use `dist` as the default base for deployable Python applications that do not need preinstalled PyTorch.
+Use `dist` as the default base for deployable Python applications.
 
 Why use this variant:
 
