@@ -101,7 +101,7 @@ Why this matters in practice:
 The following Dockerfile snippet maps container user/group IDs to your host IDs during build:
 
 ```docker
-FROM zcscompany/python:3.11-dev AS dev
+FROM cavincla/python:3.11-dev AS dev
 
 ARG FIX_UID
 ARG FIX_GID
@@ -138,7 +138,7 @@ Typical scenarios:
 Dockerfile definition:
 
 ```docker
-FROM zcscompany/python:3.11-torch-cpu-2.4.0
+FROM cavincla/python:3.11-torch-cpu-2.4.0
 
 # Copy application requirement file
 COPY --chown=${DOCKER_USER}:${DOCKER_GROUP} app/requirements.txt .
@@ -169,7 +169,7 @@ Why use this variant:
 - Clean separation between development (`dev`) and deployment (`dist`) concerns.
 
 ```docker
-FROM zcscompany/python:3.11-dist
+FROM cavincla/python:3.11-dist
 
 # Copy application requirement file
 COPY --chown=${DOCKER_USER}:${DOCKER_GROUP} app/requirements.txt .
@@ -198,11 +198,11 @@ The images in this repository are published to Docker Hub and versioned by tag.
 
 Docker Hub page:
 
-https://hub.docker.com/r/zcscompany/python
+https://hub.docker.com/r/cavincla/python
 
 Refer to the Docker Hub page for the complete and up-to-date list of available image tags, as not all version combinations listed in this README may have a published image.
 
-In most cases you can use these images directly in your application Dockerfiles (for example `FROM zcscompany/python:3.11-dist`) without rebuilding this repository locally.
+In most cases you can use these images directly in your application Dockerfiles (for example `FROM cavincla/python:3.11-dist`) without rebuilding this repository locally.
 
 This is useful when you want:
 
@@ -213,12 +213,11 @@ This is useful when you want:
 Example commands:
 
 ```bash
-docker pull zcscompany/python:3.11-dist
-docker run --rm -it zcscompany/python:3.11-dist python --version
+docker pull cavincla/python:3.11-dist
+docker run --rm -it cavincla/python:3.11-dist python --version
 ```
 
 
 ## Support
 
-[Claudio Cavina](mailto:c.cavina@zcscompany.com)  
-[Michele Mondelli](mailto:m.mondelli@zcscompany.com)
+[Claudio Cavina](mailto:cavina.claudio@gmail.com)
